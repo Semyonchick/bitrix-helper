@@ -9,7 +9,6 @@
 
 global $APPLICATION;
 Helpers::$app = $APPLICATION;
-require __DIR__ . '/HB.php';
 
 class Helpers
 {
@@ -32,7 +31,7 @@ class Helpers
         return $out;
     }
 
-    static function isDir($dir)
+    static function isDirOf($dir)
     {
         return preg_match('#^' . addslashes($dir) . '(index\.php)?(\?.+)?$#', self::$app->GetCurPage(true));
     }

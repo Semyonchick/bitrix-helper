@@ -4,9 +4,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/dictionaries
+.idea
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -49,3 +47,12 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+.idea/bitrix-helper.iml
+.idea/deployment.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/
+.idea/modules.xml
+.idea/php.xml
+.idea/vcs.xml
+composer.lock
+vendor/
