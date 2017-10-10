@@ -1,0 +1,23 @@
+{
+  "name": "rere/bitrix-helper",
+  "description": "Helps for work with bitrix",
+  "type": "bitrix-helper",
+  "keywords": [
+    "bitrix"
+  ],
+  "license": "GPL-2.0",
+  "authors": [
+    {
+      "name": "semyonchick",
+      "email": "semyonchick@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "rere\\helper\\": ""
+    }
+  }
+}
