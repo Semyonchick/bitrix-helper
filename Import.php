@@ -6,6 +6,17 @@
  * Date: 17.08.2017
  * Time: 15:53
  */
+
+namespace rere\helper;
+
+use CFile;
+use CIBlockElement;
+use CIBlockProperty;
+use CIBlockPropertyEnum;
+use CIBlockSection;
+use CModule;
+use CUtil;
+
 class Import
 {
     static function data()
@@ -102,12 +113,6 @@ class Import
 
     static function addElement($iblockId, $data)
     {
-        if (count($data['photos']) > 2) {
-//            var_dump($data);
-//            return;
-        }
-
-//        if (!$data['url']) return;
         $model = new CIBlockElement();
 
         $query = CIBlockPropertyEnum::GetList([], ['IBLOCK_ID' => $iblockId, 'PROPERTY_ID' => 49]);

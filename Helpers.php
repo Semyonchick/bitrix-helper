@@ -7,7 +7,15 @@
  * Time: 14:53
  */
 
+namespace rere\helper;
+
 global $APPLICATION;
+
+use Bitrix\Highloadblock\DataManager;
+use CBitrixComponentTemplate;
+use CFile;
+use CMain;
+
 Helpers::$app = $APPLICATION;
 
 class Helpers
@@ -16,10 +24,11 @@ class Helpers
     static $app;
     static $svgSprite;
 
-    static function svgSprite($name, $options){
+    static function svgSprite($name, $options)
+    {
         $tags = '';
         foreach ($options as $key => $value) $tags .= " {$key}=\"{$value}\"";
-        return '<svg '.$tags.'><use xlink:href="'.self::$svgSprite.'#'.$name.'"></use></svg>';
+        return '<svg ' . $tags . '><use xlink:href="' . self::$svgSprite . '#' . $name . '"></use></svg>';
     }
 
     static function renderData($name)
@@ -67,7 +76,7 @@ class Helpers
     {
         $options = array();
         if (is_array($arPhoto)) {
-            foreach(['ALT', 'TITLE'] as $attr)
+            foreach (['ALT', 'TITLE'] as $attr)
                 if (!empty($arElement[$attr])) {
                     $options[strtolower($attr)] = $arElement[$attr];
                 }
@@ -89,7 +98,7 @@ class Helpers
         }
 
         $image = self::convert($img, array($width, $height), $format);
-        foreach($image as $key => $value) if(!$value) unset($image[$key]);
+        foreach ($image as $key => $value) if (!$value) unset($image[$key]);
         if (!empty($defaultOptions['dataLazy']) || !empty($defaultOptions['lazy'])) {
             $image['data-lazy'] = $image['src'];
             unset($image['src']);
@@ -100,7 +109,7 @@ class Helpers
         if (isset($defaultOptions['lazy'])) unset($defaultOptions['lazy']);
         $options = array_merge($options, $image);
         $options = array_merge($options, $defaultOptions);
-        if($options['size']) unset($options['size']);
+        if ($options['size']) unset($options['size']);
         $tags = '';
         foreach ($options as $key => $value) $tags .= " {$key}=\"{$value}\"";
         return '<img' . $tags . '>';
@@ -119,7 +128,7 @@ class Helpers
                 "coefficient" => 0.24,
             )
         );*/
-        return CFile::ResizeImageGet($imageId, array('width' => $sizes[0], 'height' => $sizes[1]), $format, true, isset($arWaterMark)?$arWaterMark:false);
+        return CFile::ResizeImageGet($imageId, array('width' => $sizes[0], 'height' => $sizes[1]), $format, true, isset($arWaterMark) ? $arWaterMark : false);
     }
 
 
@@ -207,5 +216,14 @@ class Helpers
         echo '<pre>';
         $data ? print_r($data) : var_dump($data);
         echo '</pre>';
+    }
+
+    /** @return DataManager */
+    public static function getHL($table)
+    {
+        CModule::IncludeModule('highloadblock');
+        $hlblock = \Bitrix\Highloadblock\HighloadBlockTable::getList(['filter' => ['LOGIC' => 'OR', 'NAME' => $table, 'TABLE_NAME' => $table]])->fetch();
+        $entity = \Bitrix\Highloadblock\HighloadBlockTable::compileEntity($hlblock); //генерация класса
+        return $entity->getDataClass();
     }
 }
